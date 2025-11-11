@@ -1,48 +1,79 @@
 """
-Database Schemas
+Database Schemas for Tech Product Platform
 
-Define your MongoDB collection schemas here using Pydantic models.
-These schemas are used for data validation in your application.
-
-Each Pydantic model represents a collection in your database.
-Model name is converted to lowercase for the collection name:
-- User -> "user" collection
-- Product -> "product" collection
-- BlogPost -> "blogs" collection
+Each Pydantic model represents a MongoDB collection. The collection name is the
+lowercased class name (e.g., Product -> "product").
 """
+from typing import List, Optional, Dict, Any
+from pydantic import BaseModel, Field, EmailStr
 
-from pydantic import BaseModel, Field
-from typing import Optional
 
-# Example schemas (replace with your own):
+class Brand(BaseModel):
+    name: str = Field(..., description="Brand name")
+    logo_url: Optional[str] = Field(None, description="Public logo URL")
+    slug: str = Field(..., description="URL-friendly unique identifier")
 
-class User(BaseModel):
-    """
-    Users collection schema
-    Collection name: "user" (lowercase of class name)
-    """
-    name: str = Field(..., description="Full name")
-    email: str = Field(..., description="Email address")
-    address: str = Field(..., description="Address")
-    age: Optional[int] = Field(None, ge=0, le=120, description="Age in years")
-    is_active: bool = Field(True, description="Whether user is active")
+
+class PriceSource(BaseModel):
+    merchant: str = Field(..., description="Merchant name e.g., Amazon, Flipkart")
+    url: Optional[str] = Field(None, description="Product page URL at merchant")
+    price: float = Field(..., ge=0, description="Listed price")
+
+
+class ProductSpecs(BaseModel):
+    display: Optional[str] = None
+    camera: Optional[str] = None
+    performance: Optional[str] = None
+    battery: Optional[str] = None
+    storage: Optional[str] = None
+    ram: Optional[str] = None
+    os: Optional[str] = None
+    chipset: Optional[str] = None
+    dimensions: Optional[str] = None
+    weight: Optional[str] = None
+    connectivity: Optional[str] = None
+    extras: Optional[Dict[str, Any]] = None
+
 
 class Product(BaseModel):
-    """
-    Products collection schema
-    Collection name: "product" (lowercase of class name)
-    """
-    title: str = Field(..., description="Product title")
-    description: Optional[str] = Field(None, description="Product description")
-    price: float = Field(..., ge=0, description="Price in dollars")
-    category: str = Field(..., description="Product category")
-    in_stock: bool = Field(True, description="Whether product is in stock")
+    title: str = Field(..., description="Product name")
+    slug: str = Field(..., description="URL-friendly unique identifier")
+    category: str = Field(..., description="Category: mobile, laptop, tablet, watch, accessory")
+    brand: str = Field(..., description="Brand name")
+    images: List[str] = Field(default_factory=list)
+    thumbnail: Optional[str] = None
+    price: float = Field(..., ge=0)
+    price_sources: List[PriceSource] = Field(default_factory=list)
+    rating: Optional[float] = Field(None, ge=0, le=5)
+    popularity: Optional[int] = Field(0, ge=0)
+    specs: ProductSpecs = Field(default_factory=ProductSpecs)
+    tags: List[str] = Field(default_factory=list)
 
-# Add your own schemas here:
-# --------------------------------------------------
 
-# Note: The Flames database viewer will automatically:
-# 1. Read these schemas from GET /schema endpoint
-# 2. Use them for document validation when creating/editing
-# 3. Handle all database operations (CRUD) directly
-# 4. You don't need to create any database endpoints!
+class Article(BaseModel):
+    title: str
+    slug: str
+    cover_image: Optional[str] = None
+    excerpt: Optional[str] = None
+    content: str
+    author: str
+    category: str = Field("news", description="news | review | guide")
+    published_at: Optional[str] = None
+
+
+class User(BaseModel):
+    name: Optional[str] = None
+    email: EmailStr
+    password: Optional[str] = Field(None, description="Hashed password or temp placeholder")
+    provider: str = Field("local", description="local | google")
+    avatar_url: Optional[str] = None
+
+
+class Wishlist(BaseModel):
+    user_id: str
+    product_id: str
+
+
+# A minimal response model for compare results
+class CompareRequest(BaseModel):
+    ids: List[str]

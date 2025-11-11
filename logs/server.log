@@ -1,0 +1,29 @@
+INFO:     Will watch for changes in these directories: ['/home/workspace']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [158] using StatReload
+INFO:     Started server process [160]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     172.20.0.1:60612 - "HEAD / HTTP/1.1" 405 Method Not Allowed
+INFO:     172.20.0.1:43964 - "OPTIONS /api/admin/seed HTTP/1.1" 200 OK
+INFO:     172.20.0.1:43976 - "OPTIONS /api/admin/seed HTTP/1.1" 200 OK
+INFO:     172.20.0.1:43976 - "POST /api/admin/seed HTTP/1.1" 200 OK
+INFO:     172.20.0.1:43964 - "POST /api/admin/seed HTTP/1.1" 200 OK
+INFO:     172.20.0.1:43964 - "OPTIONS /api/products?sort=popularity&limit=8 HTTP/1.1" 200 OK
+INFO:     172.20.0.1:43976 - "OPTIONS /api/products?sort=popularity&limit=8 HTTP/1.1" 200 OK
+INFO:     172.20.0.1:43976 - "GET /api/products?sort=popularity&limit=8 HTTP/1.1" 200 OK
+INFO:     172.20.0.1:43976 - "OPTIONS /api/products?sort=latest&limit=12 HTTP/1.1" 200 OK
+INFO:     172.20.0.1:43964 - "GET /api/products?sort=popularity&limit=8 HTTP/1.1" 200 OK
+INFO:     172.20.0.1:43976 - "GET /api/products?sort=latest&limit=12 HTTP/1.1" 200 OK
+INFO:     172.20.0.1:43976 - "OPTIONS /api/brands HTTP/1.1" 200 OK
+INFO:     172.20.0.1:43964 - "GET /api/products?sort=latest&limit=12 HTTP/1.1" 200 OK
+INFO:     172.20.0.1:43976 - "GET /api/brands HTTP/1.1" 200 OK
+INFO:     172.20.0.1:43964 - "GET /api/brands HTTP/1.1" 200 OK
+INFO:     172.20.0.1:43984 - "POST /api/admin/seed HTTP/1.1" 200 OK
+INFO:     172.20.0.1:43984 - "POST /api/admin/seed HTTP/1.1" 200 OK
+INFO:     172.20.0.1:43984 - "GET /api/products?sort=popularity&limit=8 HTTP/1.1" 200 OK
+INFO:     172.20.0.1:38744 - "GET /api/products?sort=popularity&limit=8 HTTP/1.1" 200 OK
+INFO:     172.20.0.1:43984 - "GET /api/products?sort=latest&limit=12 HTTP/1.1" 200 OK
+INFO:     172.20.0.1:43984 - "GET /api/brands HTTP/1.1" 200 OK
+INFO:     172.20.0.1:38744 - "GET /api/products?sort=latest&limit=12 HTTP/1.1" 200 OK
+INFO:     172.20.0.1:38744 - "GET /api/brands HTTP/1.1" 200 OK
